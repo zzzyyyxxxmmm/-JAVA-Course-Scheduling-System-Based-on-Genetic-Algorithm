@@ -8,7 +8,9 @@ p2 遗传是演示视频 用屏幕录像工具就能打开
 
 p2.lxe is the example video which shows how it works.
 
+##数据格式
 
+p2目录下的1.xls
 
 ## 编码
 
