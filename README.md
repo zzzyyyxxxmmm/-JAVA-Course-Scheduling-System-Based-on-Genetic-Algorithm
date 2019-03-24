@@ -1,8 +1,6 @@
 # -JAVA-Course-Scheduling-System-Based-on-Genetic-Algorithm
 
-使用前需要调整读取课表要求文档1.xls的目录
-
-You must set the catalog to the catalog of 1.xls which is the request of Course scheduling.
+使用前先把lib下的jar包导入到library里，然后直接运行EntryWindow.java即可
 
 p2 遗传是演示视频 用屏幕录像工具就能打开
 
