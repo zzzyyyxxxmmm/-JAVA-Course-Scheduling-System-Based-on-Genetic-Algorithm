@@ -1,12 +1,18 @@
 package p2;
 
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
 
 /**
  * @author jikangwang
  */
-class MyTable extends AbstractTableModel {//使用AbstractTableModel来创建表格模型
-    Object[][] p =
+class MyTable{//使用AbstractTableModel来创建表格模型
+
+
+    JTable table;
+    Object[][] rowData =
             {
                     {"1-2", null, null, null, null, null},
                     {"3-4", null, null, null, null, null},
@@ -14,7 +20,7 @@ class MyTable extends AbstractTableModel {//使用AbstractTableModel来创建表
                     {"7-8", null, null, null, null, null},
                     {"9-10", null, null, null, null, null},
             };
-    Object[][] pp =
+    Object[][] cache =
             {
                     {"1-2", null, null, null, null, null},
                     {"3-4", null, null, null, null, null},
@@ -22,12 +28,21 @@ class MyTable extends AbstractTableModel {//使用AbstractTableModel来创建表
                     {"7-8", null, null, null, null, null},
                     {"9-10", null, null, null, null, null},
             };
-    String[] n = {"", "\u661F\u671F\u4E00", "\u661F\u671F\u4E8C", "\u661F\u671F\u4E09", "\u661F\u671F\u56DB", "\u661F\u671F\u4E94"};
+    String[] columnNames = {"", "\u661F\u671F\u4E00", "\u661F\u671F\u4E8C", "\u661F\u671F\u4E09", "\u661F\u671F\u56DB", "\u661F\u671F\u4E94"};
+
+    public JTable getTable() {
+        return table;
+    }
+
+    public MyTable() {
+        table=new JTable(rowData, columnNames);
+        table.setDefaultRenderer(Object.class, new TableCellTextAreaRenderer());
+    }
 
     public void sava() {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j <= 5; j++) {
-                pp[i][j] = p[i][j];
+                cache[i][j] = rowData[i][j];
             }
         }
     }
@@ -35,172 +50,45 @@ class MyTable extends AbstractTableModel {//使用AbstractTableModel来创建表
     public void restore() {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j <= 5; j++) {
-                p[i][j] = pp[i][j];
+                rowData[i][j] = cache[i][j];
             }
         }
     }
 
-    public void check(int x, String cl) {
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j <= 5; j++) {
-                p[i][j] = pp[i][j];
-            }
-        }
-        if (x == 0) {    //按班级查询
-
-            cl = cl + "班";
-            for (int i = 0; i < 5; i++) {
-                for (int j = 1; j <= 5; j++) {
-                    String w1 = (String) p[i][j];
-                    if (w1 == null) continue;
-                    int index = w1.indexOf(cl);
-                    int index1 = index;
-                    int index2 = index;
-                    //System.out.println(index1+" "+index2);
-                    if (index != -1) {    //找到班级前缀
-
-                        while (true) {
-                            index1--;
-                            if (index1 == -1 || w1.charAt(index1) == '*') {
-                                index1++;
-                                break;
-                            }
-                        }
-                        while (true) {
-                            index2++;
-                            if (w1.charAt(index2) == '*') {
-                                break;
-                            }
-                        }
-                        p[i][j] = (Object) (w1.substring(index1, index2 + 1));
-                    } else
-                        p[i][j] = null;
-
-                }
-            }
-        }
-        if (x == 1) {    //按教师查询
-
-            cl = cl + "老";
-            for (int i = 0; i < 5; i++) {
-                for (int j = 1; j <= 5; j++) {
-                    String w1 = (String) p[i][j];
-                    if (w1 == null) continue;
-                    int index = w1.indexOf(cl);
-                    int index1 = index;
-                    int index2 = index;
-                    if (index != -1) {    //找到班级前缀
-
-                        while (true) {
-                            index1--;
-                            if (index1 == -1 || w1.charAt(index1) == '*') {
-                                index1++;
-                                break;
-                            }
-                        }
-                        while (true) {
-                            index2++;
-                            if (w1.charAt(index2) == '*') {
-                                break;
-                            }
-                        }
-                        p[i][j] = (Object) (w1.substring(index1, index2 + 1));
-                    } else
-                        p[i][j] = null;
-                }
-            }
-        }
-
-        if (x == 2) {    //按教室查询
-
-            cl = cl + "教";
-            for (int i = 0; i < 5; i++) {
-                for (int j = 1; j <= 5; j++) {
-                    String w1 = (String) p[i][j];
-                    if (w1 == null) continue;
-                    int index = w1.indexOf(cl);
-                    int index1 = index;
-                    int index2 = index;
-                    if (index != -1) {    //找到班级前缀
-
-                        while (true) {
-                            index1--;
-                            if (index1 == -1 || w1.charAt(index1) == '*') {
-                                index1++;
-                                break;
-                            }
-                        }
-                        while (true) {
-                            index2++;
-                            if (w1.charAt(index2) == '*') {
-                                break;
-                            }
-                        }
-                        p[i][j] = (Object) (w1.substring(index1, index2 + 1));
-                    } else
-                        p[i][j] = null;
-                }
-            }
-        }
-
-
-    }
-
-    public void sp(String s1, String s2, String s3, String ss1, String ss2)    //教师 班级 时间            时间 教室
+    public Boolean sp(String s1, String s2, String s3, String ss1, String ss2)    //教师 班级 时间            时间 教室
     {
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j <= 5; j++) {
-                p[i][j] = pp[i][j];
-            }
-        }
+        String[] t1=s3.split("-");
+        Unit u=(Unit)getValueAt(Integer.parseInt(t1[1])-1,Integer.parseInt(t1[0]));
+        if(u==null) return false;
+        Mission m=u.getByName(s1, s2);
+        if(m==null) return false;
 
-        s2 = s2 + "班";
-        //System.out.println(s2+"*********"+s3);
-        int jjj = s3.charAt(0) - '0';
-        int iii = s3.charAt(2) - '0' - 1;
-        String w1 = (String) p[iii][jjj];
-        int index = w1.indexOf(s2);
-        int index1 = index;
-        int index2 = index;
-        if (index != -1) {    //找到班级前缀
+        Mission nm=new Mission(m.getTeacherName(),m.getCourseName(),m.getDay(),m.getTime(),m.getClassroom(),m.getClassId());
+        u.Delele(m);
 
-            while (true) {
-                index1--;
-                if (index1 == -1 || w1.charAt(index1) == '*') {
-                    index1++;
-                    break;
-                }
-            }
-            while (true) {
-                index2++;
-                if (w1.charAt(index2) == '*') {
-                    break;
-                }
-            }
-
-            String neww1 = w1.substring(0, index1) + w1.substring(index2 + 1, w1.length());
-            p[iii][jjj] = (Object) neww1;
-
-        }
-
-
+        String[] t2=ss1.split("-");
+        Unit u2=(Unit)getValueAt(Integer.parseInt(t2[1])-1,Integer.parseInt(t2[0]));
+        nm.setClassroom(ss2);
+        u2.Add(nm);
         this.sava();
+
+        return true;
     }
 
     public int getColumnCount() {
-        return n.length;
+        return columnNames.length;
     }
 
     public int getRowCount() {
-        return p.length;
+        return rowData.length;
     }
 
     public String getColumnName(int col) {
-        return n[col];
+        return columnNames[col];
     }
 
     public Object getValueAt(int row, int col) {
-        return p[row][col];
+        return rowData[row][col];
     }
 
     public boolean isCellEditable(int rowIndex, int columnIndex) {    //判断单元格是否可以编辑
@@ -208,26 +96,43 @@ class MyTable extends AbstractTableModel {//使用AbstractTableModel来创建表
     }
 
     public void setValueAt(int row, int col ,Object value) {
-        p[row][col] = value;
-        fireTableCellUpdated(row, col);
+        table.setValueAt(value, row, col);
     }
 
-    public void appendValueAt(int row, int col,Object value ) {
-        String w1 = (String) value;
-        String w2 = (String) p[row][col];
-        if (w2 == null) {
-            p[row][col] = (Object) (w1);
-        } else {
-            p[row][col] = (Object) (w1 + "\n"+w2);
-        }
-
+    public void appendValueAt(int row, int col,Mission value ) {
+        Unit u=(Unit) table.getValueAt(row, col);
+        u.Add(value);
     }
 
     public void clear() {
         for (int i = 0; i < 5; i++) {
             for (int j = 1; j <= 5; j++) {
-                p[i][j] = null;
+                rowData[i][j] = new Unit();
             }
+        }
+    }
+
+    class TableCellTextAreaRenderer extends JTextArea implements TableCellRenderer {
+        public TableCellTextAreaRenderer() {
+            setLineWrap(true);
+            setWrapStyleWord(true);
+        }
+
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                                                       boolean isSelected, boolean hasFocus, int row, int column) {
+            // 计算当下行的最佳高度
+            int maxPreferredHeight = 0;
+            for (int i = 0; i < table.getColumnCount(); i++) {
+                setText("" + table.getValueAt(row, i));
+                setSize(table.getColumnModel().getColumn(column).getWidth(), 0);
+                maxPreferredHeight = Math.max(maxPreferredHeight, getPreferredSize().height);
+            }
+
+            if (table.getRowHeight(row) != maxPreferredHeight)  // 少了这行则处理器瞎忙
+                table.setRowHeight(row, maxPreferredHeight);
+
+            setText(value == null ? "" : value.toString());
+            return this;
         }
     }
 }

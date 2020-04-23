@@ -80,6 +80,7 @@ public class Mission {
     }
 
     public String out(){
+        if(teacherName.length()==0) return "";
         return teacherName+"老师"+"("+courseName+")"+"在"+classroom+"教室"+"教"+classId+"班";
     }
 }

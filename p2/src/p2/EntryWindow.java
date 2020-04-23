@@ -23,8 +23,8 @@ public class EntryWindow {
     private JPanel panel;
     private JButton startBruteButton;
     private JButton startGAButton;
-    JTable table = null;
-    MyTable myTable = null;
+    MyTable table = null;
+    MyTable myTable = new MyTable();
 
 
     public JTextField textField;
@@ -65,7 +65,7 @@ public class EntryWindow {
         createTable();
 
 
-        ga.setTable(table);
+        ga.setTable(table.getTable());
         ga.setMyTable(myTable);
         ga.setStatus(status);
 
@@ -74,10 +74,9 @@ public class EntryWindow {
 
     private void createTable() {
         myTable = new MyTable();
-        table = new JTable(myTable);
-        table.setPreferredScrollableViewportSize(new Dimension(1000, 800));
-        table.setRowHeight(100);
-        JScrollPane s = new JScrollPane(table);
+        table = myTable;
+        // Data to be displayed in the JTable
+        JScrollPane s = new JScrollPane(table.getTable());
         frame.getContentPane().add(s, BorderLayout.CENTER);
         frame.setTitle("JAVA Course Scheduling System Based on Genetic Algorithm");
         frame.pack();
@@ -87,7 +86,7 @@ public class EntryWindow {
                 System.exit(0);
             }
         });
-
+        frame.setSize(1200,700);
 
         panel = new JPanel();
         startBruteButton = new JButton("开始排课(暴力算法)");
@@ -106,7 +105,7 @@ public class EntryWindow {
                     return;
                 }
                 myTable.clear();
-                table.repaint();//系统重新绘制表格
+                table.getTable().repaint();//系统重新绘制表格
                 ga.bruteForce();
 
             }
@@ -123,12 +122,12 @@ public class EntryWindow {
                     return;
                 }
                 myTable.clear();
-                table.repaint();//系统重新绘制表格
+                table.getTable().repaint();//系统重新绘制表格
                 ga.start();
             }
         });
         panel.add(startGAButton);
-        table.repaint();//系统重新绘制表格
+        table.getTable().repaint();//系统重新绘制表格
 
 
         JMenuBar menuBar = new JMenuBar();
@@ -194,6 +193,7 @@ public class EntryWindow {
 
                 JPanel panel_2 = new JPanel();
                 frame1.getContentPane().add(panel_2, BorderLayout.SOUTH);
+                frame1.setSize(1200,100);
 
                 JLabel lblNewLabel = new JLabel("请输入时间和地点");
                 panel_2.add(lblNewLabel);
@@ -214,6 +214,12 @@ public class EntryWindow {
                 panel_3.add(lblNewLabel_1);
 
                 JButton btnNewButton = new JButton("排课");
+                textField.setText("沈明玉");
+                textField_4.setText("计科-1");
+                textField_5.setText("1-1");
+                textField_1.setText("4-1");
+                textField_2.setText("1");
+
                 btnNewButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent arg0) {
                         String s1 = textField.getText();
@@ -221,8 +227,13 @@ public class EntryWindow {
                         String s3 = textField_5.getText();
                         String ss1 = textField_1.getText();
                         String ss2 = textField_2.getText();
-                        myTable.sp(s1, s2, s3, ss1, ss2);
-                        table.repaint();
+                        boolean result=myTable.sp(s1, s2, s3, ss1, ss2);
+                        if(!result){
+                            lblNewLabel_1.setText("未找到对应班级");
+                        } else {
+                            lblNewLabel_1.setText("修改成功");
+                        }
+                        table.getTable().repaint();
                     }
 
                 });
@@ -270,7 +281,7 @@ public class EntryWindow {
         menuItem_3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 myTable.restore();
-                table.repaint();
+                table.getTable().repaint();
             }
         });
         menu_1.add(menuItem_3);
@@ -317,13 +328,13 @@ public class EntryWindow {
                     ga.queryByTeacherName(xx);
                 else if (queryType == 2)
                     ga.queryByClassRoom(xx);
-                table.repaint();
+                table.getTable().repaint();
             }
 
         });
         panel1.add(btnNewButton);
 
-        table.repaint();
+        table.getTable().repaint();
 
     }
 

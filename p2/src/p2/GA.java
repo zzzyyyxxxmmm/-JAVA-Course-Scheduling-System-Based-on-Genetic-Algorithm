@@ -120,7 +120,7 @@ public class GA {
                                 Mission mission = new Mission(teacherName, courseName, String.valueOf(day), String.valueOf(time), String.valueOf(classRoom), classId);
                                 missionList.add(mission);
 
-                                myTable.appendValueAt(j - 1, i, (String) coursesList.get(ii).getTeacherName() + "老师" + "(" + coursesList.get(ii).getCourseName() + ")" + "在" + k + "教室" + "教" + coursesList.get(ii).getCourseClass() + "班*");
+                                myTable.appendValueAt(j - 1, i, mission);
                                 vis[ii] = true;
                                 break;
                             } else {
@@ -644,7 +644,7 @@ public class GA {
             String classId = (String) rmapc.get(t2);
             Mission mission = new Mission(teacherName, courseName, String.valueOf(day), String.valueOf(time), String.valueOf(classRoom), classId);
             missionList.add(mission);
-            myTable.appendValueAt(day, time, mission.out());
+            myTable.appendValueAt(day, time, mission);
             myTable.sava();
         }
         System.out.println("f=" + best1.getFitness());
@@ -658,7 +658,7 @@ public class GA {
     void queryByClassId(String id) {
         for (Mission m : missionList) {
             if (id.equals(m.getClassId())) {
-                myTable.appendValueAt(Integer.valueOf(m.getDay()), Integer.valueOf(m.getTime()), m.out());
+                myTable.appendValueAt(Integer.valueOf(m.getDay()), Integer.valueOf(m.getTime()), m);
             }
         }
     }
@@ -666,7 +666,7 @@ public class GA {
     void queryByTeacherName(String name) {
         for (Mission m : missionList) {
             if (name.equals(m.getTeacherName())) {
-                myTable.appendValueAt(Integer.valueOf(m.getDay()), Integer.valueOf(m.getTime()), m.out());
+                myTable.appendValueAt(Integer.valueOf(m.getDay()), Integer.valueOf(m.getTime()), m);
             }
         }
     }
@@ -674,7 +674,7 @@ public class GA {
     void queryByClassRoom(String room) {
         for (Mission m : missionList) {
             if (room.equals(m.getClassroom())) {
-                myTable.appendValueAt(Integer.valueOf(m.getDay()), Integer.valueOf(m.getTime()), m.out());
+                myTable.appendValueAt(Integer.valueOf(m.getDay()), Integer.valueOf(m.getTime()), m);
             }
         }
     }
