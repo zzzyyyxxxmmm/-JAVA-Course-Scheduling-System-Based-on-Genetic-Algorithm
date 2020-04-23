@@ -2,7 +2,7 @@
 
 使用前先把lib下的jar包导入到library里，然后直接运行EntryWindow.java即可
 
-p2 遗传是演示视频 用屏幕录像工具就能打开
+p2 遗传是演示视频 用屏幕录像工具就能打开(很早以前的演示了, 可能和实际有所区别)
 
 p2.lxe is the example video which shows how it works.
 
