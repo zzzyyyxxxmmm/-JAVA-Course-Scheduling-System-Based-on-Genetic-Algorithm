@@ -6,28 +6,26 @@ p2 遗传是演示视频 用屏幕录像工具就能打开
 
 p2.lxe is the example video which shows how it works.
 
-排课结果
+### 排课结果
 <div align=center>
-<img src="https://github.com/zzzyyyxxxmmm/-JAVA-Course-Scheduling-System-Based-on-Genetic-Algorithm/blob/master/image/1.png" width="1000" height="800">
+<img src="https://github.com/zzzyyyxxxmmm/-JAVA-Course-Scheduling-System-Based-on-Genetic-Algorithm/blob/master/image/1.png" width="900" height="600">
 </div>
 
-
-训练中:
+### 训练中:
 <div align=center>
 <img src="https://github.com/zzzyyyxxxmmm/-JAVA-Course-Scheduling-System-Based-on-Genetic-Algorithm/blob/master/image/2.png" width="500" height="700">
 </div>
 
-
-查询课表:
+### 查询课表:
 <div align=center>
-<img src="https://github.com/zzzyyyxxxmmm/-JAVA-Course-Scheduling-System-Based-on-Genetic-Algorithm/blob/master/image/3.png" width="1000" height="800">
+<img src="https://github.com/zzzyyyxxxmmm/-JAVA-Course-Scheduling-System-Based-on-Genetic-Algorithm/blob/master/image/3.png" width="1000" height="600">
 </div>
 
-## 数据格式
+### 数据格式
 
 p2目录下的1.xls
 
-## 编码
+###s 编码
 
 总共长25，表示某个**教师**在某个**时间**，某个**教室**教某个**班级**，取的都是map映射的值
 
